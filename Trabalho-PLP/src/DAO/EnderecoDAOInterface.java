@@ -17,6 +17,8 @@ public interface EnderecoDAOInterface {
     public boolean insertEndereco(Endereco endereco) throws EnderecoDAOException;
     public boolean deleteEndereco(int id) throws EnderecoDAOException;
     
+    public int insertEndereco() throws EnderecoDAOException;
+    
     public ArrayList<Endereco> retrieveAll () throws EnderecoDAOException;
     
 }

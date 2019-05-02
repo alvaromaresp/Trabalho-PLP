@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public interface ClienteDAOInterface {
     
     public boolean insertCliente(Cliente cliente) throws ClienteDAOException;
+    public boolean insertCliente() throws ClienteDAOException;
     public boolean deleteClienteByID(int id) throws ClienteDAOException;
     
     public ArrayList<Cliente> retrieveAll() throws ClienteDAOException;

@@ -37,6 +37,54 @@ public class Cliente {
         this.telefone_ = telefone_;
         this.email_ = null;
     }
+
+    public int getId_() {
+        return id_;
+    }
+
+    public void setId_(int id_) {
+        this.id_ = id_;
+    }
+
+    public String getNome_() {
+        return nome_;
+    }
+
+    public void setNome_(String nome_) {
+        this.nome_ = nome_;
+    }
+
+    public String getCpf_() {
+        return cpf_;
+    }
+
+    public void setCpf_(String cpf_) {
+        this.cpf_ = cpf_;
+    }
+
+    public String getTelefone_() {
+        return telefone_;
+    }
+
+    public void setTelefone_(String telefone_) {
+        this.telefone_ = telefone_;
+    }
+
+    public String getEmail_() {
+        return email_;
+    }
+
+    public void setEmail_(String email_) {
+        this.email_ = email_;
+    }
+
+    public int getId_endereco_() {
+        return id_endereco_;
+    }
+
+    public void setId_endereco_(int id_endereco_) {
+        this.id_endereco_ = id_endereco_;
+    }
     
     
             
