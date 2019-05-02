@@ -4,27 +4,29 @@
  * and open the template in the editor.
  */
 package Model;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 /**
  *
  * @author alfarr
  */
-public class Servico {
+public class Servico extends Produto{
     
-        private int id_;
-        private String nome_;
-        private String desc_;
-        private double preco_;
+    private int id_;
+    private String data_inicio_;
 
     public Servico() {
     }
         
     
-    public Servico(int id_, String nome_, String desc_, double preco_) {
+    public Servico(int id_, int id_prod_, String nome_, String desc_, double preco_) {
+        super(id_prod_, preco_, nome_, desc_);
         this.id_ = id_;
-        this.nome_ = nome_;
-        this.desc_ = desc_;
-        this.preco_ = preco_;
+        Date dt = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        this.data_inicio_ = sdf.format(dt);
+        
     }
 
     public int getId_() {
@@ -34,29 +36,10 @@ public class Servico {
     public void setId_(int id_) {
         this.id_ = id_;
     }
+    
 
-    public String getNome_() {
-        return this.nome_;
-    }
-
-    public void setNome_(String nome_) {
-        this.nome_ = nome_;
-    }
-
-    public String getDesc_() {
-        return desc_;
-    }
-
-    public void setDesc_(String desc_) {
-        this.desc_ = desc_;
-    }
-
-    public double getPreco_() {
-        return preco_;
-    }
-
-    public void setPreco_(double preco_) {
-        this.preco_ = preco_;
+    public String getDate(){
+        return data_inicio_;
     }
         
     
