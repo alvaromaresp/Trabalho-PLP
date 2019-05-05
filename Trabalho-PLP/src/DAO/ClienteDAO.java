@@ -7,7 +7,6 @@ package DAO;
 
 import Model.Cliente;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  *
@@ -15,49 +14,83 @@ import java.util.Scanner;
  */
 public class ClienteDAO implements ClienteDAOInterface{
     
-    private ArrayList<Cliente> clientes_array_;
-    private Scanner scanner;
-
     @Override
     public boolean insertCliente(Cliente cliente) throws ClienteDAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-      
+       throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+   
     @Override
-    public boolean insertCliente() throws ClienteDAOException {
-        EnderecoDAO endereco_dao = new EnderecoDAO();
-        try{
-            Cliente cliente = new Cliente();
-            System.out.println ("Entre com os dados do cliente: ");
-            
-            System.out.print("Nome: ");
-            cliente.setNome_(scanner.nextLine());
-            System.out.print("CPF: ");
-            cliente.setCpf_(scanner.nextLine()); // OLHAR PATTERN
-            System.out.print("Telefone: ");
-            cliente.setTelefone_(scanner.nextLine());
-            System.out.print("Email: ");
-            cliente.setEmail_(scanner.nextLine());
-     
-            cliente.setId_endereco_(endereco_dao.insertEndereco());
-            
-            return clientes_array_.add(cliente);
-        } catch (EnderecoDAOException e){
-            throw new ClienteDAOException(e.getMessage() + " // Erro em insertCliente: ");
-        }
+    public boolean insertCliente(ArrayList<Cliente> clientes_array, Cliente cliente) throws ClienteDAOException {
+       try{
+           if (!checkCPF(clientes_array, cliente.getCpf_()))
+               return clientes_array.add(cliente);
+           else{
+               System.out.println("CPF repetido!");
+               return false;
+           }
+       } catch (Exception e){
+           throw new ClienteDAOException(e.getMessage() + " // Erro em insertCliente(array,cliente) ");
+       }
     }
-    
 
     @Override
     public boolean deleteClienteByID(int id) throws ClienteDAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    @Override
+    public boolean deleteClienteByCPF(ArrayList<Cliente> clientes_array, String cpf) throws ClienteDAOException {
+        try{
+            Cliente c = retrieveClienteByCPF(clientes_array, cpf);
+            
+            return clientes_array.remove(c);
+            
+        }catch(ClienteDAOException e){
+            throw new ClienteDAOException(e.getMessage() + " // Erro em deleteClienteByCPF(array, cpf) ");
+        }
+    }
+
 
     @Override
     public ArrayList<Cliente> retrieveAll() throws ClienteDAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public Cliente retrieveClienteByCPF(ArrayList<Cliente> clientes_array, String cpf) throws ClienteDAOException {
+        try{
+            Cliente rCliente = null;
+            
+            for(Cliente c : clientes_array){
+                if (c.getCpf_().equals(cpf)){
+                    rCliente = c;
+                    break;
+                }
+            }
+            
+            return rCliente;
+                
+        }catch (Exception e){
+            throw new ClienteDAOException(e.getMessage() + " // Erro em retrieveClienteByCPF");
+        }
+            
+            
+    }
+
+    @Override
+    public boolean checkCPF(ArrayList<Cliente> clientes_array, String cpf){
+        boolean rFlag = false;
+        for(Cliente c : clientes_array){
+            if (c.getCpf_().equals(cpf)){
+                rFlag = true;
+                break;
+            }
+        }
+        return rFlag;
+        
+    }
+
+
+    
 
 }

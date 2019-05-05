@@ -14,10 +14,9 @@ import java.util.ArrayList;
  */
 public interface EnderecoDAOInterface {
     
-    public boolean insertEndereco(Endereco endereco) throws EnderecoDAOException;
+    public int insertEndereco(ArrayList<Endereco> enderecos_array, Endereco endereco) throws EnderecoDAOException;
     public boolean deleteEndereco(int id) throws EnderecoDAOException;
-    
-    public int insertEndereco() throws EnderecoDAOException;
+
     
     public ArrayList<Endereco> retrieveAll () throws EnderecoDAOException;
     

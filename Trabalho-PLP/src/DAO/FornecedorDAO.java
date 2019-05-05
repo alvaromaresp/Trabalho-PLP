@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @author alfarr
  */
 public class FornecedorDAO implements FornecedorDAOInterface{
-
+    
     @Override
     public boolean insertFornecedor(Fornecedor fornecedor) throws FornecedorDAOException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

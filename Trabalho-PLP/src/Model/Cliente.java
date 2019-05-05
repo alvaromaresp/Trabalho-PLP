@@ -86,8 +86,7 @@ public class Cliente {
         this.id_endereco_ = id_endereco_;
     }
     
-    
-            
+   
         
     
 }
