@@ -8,7 +8,6 @@ package Controller;
 import DAO.ClienteDAO;
 import DAO.ClienteDAOException;
 import Model.Cliente;
-import Model.Endereco;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -76,7 +75,9 @@ public class ClienteController {
         try{
             ClienteDAO cliente_dao = new ClienteDAO();
             Cliente aux = new Cliente();
-            ArrayList<Endereco> enderecos_array = EnderecoController.retrieveAll();
+            
+            EnderecoController endereco_controller = new EnderecoController();
+            
             
             aux.setId_(clientes_array_.size());
             
@@ -90,7 +91,7 @@ public class ClienteController {
             System.out.print("Telefone: ");
             aux.setTelefone_(scanner.nextLine());
             
-            aux.setId_endereco_(EnderecoController.insertEndereco());
+            aux.setId_endereco_(endereco_controller.processRequest("insert", -1));
             
 
             return cliente_dao.insertCliente(clientes_array_, aux);
@@ -109,7 +110,7 @@ public class ClienteController {
             cpf = scanner.nextLine();
             
             return cliente_dao.deleteClienteByCPF(clientes_array_, cpf);
-        } catch (Exception e){
+        } catch (ClienteDAOException e){
             throw new Exception(e.getMessage() + " // Erro em Cliente Controller - deletion ");    
         }
     }
@@ -119,7 +120,8 @@ public class ClienteController {
          try{
             String cpf = scanner.nextLine();
             ClienteDAO clienteDAO = new ClienteDAO();
-             
+            EnderecoController endereco_controller = new EnderecoController();
+            
             Cliente c = clienteDAO.retrieveClienteByCPF(clientes_array_, cpf);
             
             if (c != null){
@@ -127,10 +129,11 @@ public class ClienteController {
                 System.out.println("CPF: " + c.getCpf_());
                 System.out.println("Email: " + c.getEmail_());
                 System.out.println("Telefone: " + c.getTelefone_());
+                endereco_controller.processRequest("read", c.getId_endereco_());
             } else {
                 System.out.println("CPF inexistente.");
             }
-         } catch (Exception e){
+         } catch (ClienteDAOException e){
              throw new Exception(e.getMessage() + " // Erro em Cliente Controller - display ");
          }
          
@@ -158,8 +161,8 @@ public class ClienteController {
             String _new = scanner.nextLine();
             
             switch (op.toLowerCase()){
-                case "cpf":{
-                                  
+                
+                case "cpf":{                                  
                     while(cliente_dao.checkCPF(clientes_array_, _new)) _new = scanner.nextLine();
                     
                     c.setCpf_(_new);
@@ -175,14 +178,22 @@ public class ClienteController {
                     c.setTelefone_(_new);
                     break;
                 }
+                
+                case "endereco":{
+                    EnderecoController endereco_controller = new EnderecoController();
+                    endereco_controller.processRequest("update", c.getId_endereco_());
+                    break;
+                }
                         
             }
             
             clientes_array_.add(c.getId_(), c);
             
             
-        } catch (Exception e){
+        } catch (ClienteDAOException e){
             throw new Exception(e.getMessage() + " // Erro em Cliente Controller - update  ");    
         }
     }
+    
+    
 }

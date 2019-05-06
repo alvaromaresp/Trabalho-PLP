@@ -14,19 +14,21 @@ public class Endereco {
     private String rua_;
     private String numero_;
     private String bairro_;
+    private String cidade_;
     private String estado_;
     private String cep_;
 
     public Endereco() {
     }
 
-    public Endereco(int id_, String rua_, String numero_, String bairro_, String estado_, String cep_) {
+    public Endereco(int id_, String rua_, String numero_, String bairro_, String cidade_, String estado_, String cep_) {
         this.id_ = id_;
         this.rua_ = rua_;
         this.numero_ = numero_;
         this.bairro_ = bairro_;
         this.estado_ = estado_;
         this.cep_ = cep_;
+        this.cidade_ = cidade_;
     }
 
     public int getId_() {
@@ -76,7 +78,19 @@ public class Endereco {
     public void setCep_(String cep_) {
         this.cep_ = cep_;
     }
+
+    public String getCidade_() {
+        return cidade_;
+    }
+
+    public void setCidade_(String cidade_) {
+        this.cidade_ = cidade_;
+    }
     
-    
+    @Override
+    public String toString(){
+        return "Endereço: \nCEP: " + cep_ + "\nRua: " + rua_ + "\nNúmero: " + numero_ + 
+                "\nBairro: " + bairro_ + "\nCidade: " + cidade_ + "\nEstado: " + estado_;
+    }
     
 }

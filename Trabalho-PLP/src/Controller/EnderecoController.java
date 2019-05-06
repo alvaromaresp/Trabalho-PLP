@@ -6,6 +6,7 @@
 package Controller;
 
 import DAO.EnderecoDAO;
+import DAO.EnderecoDAOException;
 import Model.Endereco;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -14,27 +15,132 @@ import java.util.Scanner;
  *
  * @author alfarr
  */
-public abstract class EnderecoController {
+public class EnderecoController {
     
     private final Scanner scanner;
     private static final ArrayList<Endereco> enderecos_array_ = new ArrayList();
     
-    public static int insertEndereco () throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.            
-    }
     
-    public static ArrayList<Endereco> retrieveAll () throws Exception{
-        try{
-            // EnderecoDAO endereco_dao = new EnderecoDAO();
-            
-            return enderecos_array_; // endereco_dao.retrieveAll();
-        }catch(Exception e){
-            throw new Exception(e.getMessage() + " // Erro em retrieveAll");
-        }
-            
-    }
-
     public EnderecoController() {
         this.scanner = new Scanner(System.in);
     }
+    
+    public int processRequest (String cmd, int id) throws Exception {
+        try{
+           
+           switch(cmd){
+               
+                case "insert":{
+                   return insertion();               
+               }
+                
+                case "delete": {
+                   return deletion(id)? 1 : 0;
+               }
+               
+                              
+               case "update":{
+                   update(id);
+                   break;
+               }
+               
+               
+               case "read":{
+                   read(id);
+                   break;
+               }        
+                   
+           }
+           
+           System.out.println("Comando não encontrado em Endereço Controller.");
+           return -1;
+        } catch (Exception e){
+           throw new Exception(e.getMessage() + " // Erro em Endereço Controller - processRequest (cmd, id)  ");    
+        }
+        
+    }
+    
+    private int insertion () throws Exception {
+        try{
+            EnderecoDAO endereco_dao = new EnderecoDAO();
+            
+            Endereco aux = new Endereco();
+            
+            aux.setCep_(scanner.nextLine());
+            aux.setRua_(scanner.nextLine());
+            aux.setNumero_(scanner.nextLine());
+            aux.setBairro_(scanner.nextLine());
+            aux.setCidade_(scanner.nextLine());
+            aux.setEstado_(scanner.nextLine());
+            
+            aux.setId_(enderecos_array_.size());
+            
+            return endereco_dao.insertEndereco(enderecos_array_, aux);
+            
+        } catch (EnderecoDAOException e){
+            throw new Exception(e.getMessage() + " // Erro em Endereço Controller - insertion ");
+        }
+            
+    }
+    
+    private boolean deletion (int id) throws Exception {
+        try{
+            EnderecoDAO endereco_dao = new EnderecoDAO();
+            
+            return endereco_dao.deleteEndereco(enderecos_array_, id);
+        } catch (EnderecoDAOException e){
+            throw new Exception(e.getMessage() + " // Erro em Endereço Controller - deletion ");
+        }
+    }
+    
+    private void read (int id){
+        System.out.println(enderecos_array_.get(id).toString());
+    }
+   
+    private boolean update (int id) throws Exception{
+        try{
+            Endereco aux = enderecos_array_.get(id);
+            
+            if (aux == null) return false;
+            
+            String op = scanner.nextLine();
+            String _new = scanner.nextLine();
+            
+            switch (op.toLowerCase()){
+                
+                case "rua":{
+                    aux.setRua_(_new);
+                    break;
+                }
+                
+                case "numero":{
+                    aux.setNumero_(_new);
+                    break;
+                }
+                
+                case "bairo":{
+                    aux.setBairro_(_new);
+                    break;
+                }
+                
+                case "estado":{
+                    aux.setEstado_(_new);
+                    break;
+                }
+                
+                case "cep":{
+                    aux.setCep_(_new);
+                    break;
+                }
+            }
+            
+            enderecos_array_.add(id, aux);
+            
+            return true;
+            
+        } catch (Exception e){
+            throw new Exception(e.getMessage() + " // Erro em Endereço Controller - update (id)  ");  
+        }
+    }
+    
 }

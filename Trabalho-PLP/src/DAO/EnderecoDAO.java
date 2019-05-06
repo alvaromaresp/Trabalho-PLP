@@ -22,20 +22,27 @@ public class EnderecoDAO implements EnderecoDAOInterface{
            
            return rId;
        } catch (Exception e){
-           throw new EnderecoDAOException(e.getMessage() + " // Erro em insertCliente(array,cliente) ");
+           throw new EnderecoDAOException(e.getMessage() + " // Erro em insertEndereco(array, endereco) ");
        }
         
     }
     
     
     @Override
-    public boolean deleteEndereco(int id) throws EnderecoDAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean deleteEndereco(ArrayList<Endereco> enderecos_array,int id) throws EnderecoDAOException {
+        try{
+           return enderecos_array.remove(id) != null;
+        } catch (Exception e){
+            throw new EnderecoDAOException(e.getMessage() + " // Erro em deleteEndereco(array, id) ");
+        }
     }
 
     @Override
     public ArrayList<Endereco> retrieveAll() throws EnderecoDAOException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+            
+
+    
     
 }
