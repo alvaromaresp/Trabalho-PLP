@@ -40,18 +40,23 @@ public class Main {
                         case 1:{
                             cliente_controller.processRequest("insert");
                         }
+                        break;
                         case 2:{
                             cliente_controller.processRequest("update");
                         }
+                        break;
                         case 3:{
                             cliente_controller.processRequest("delete");
                         }
+                        break;
                         case 4:{
                             cliente_controller.processRequest("read");
                         }
+                        break;
                         case 5:{
                             cliente_controller.processRequest("read-all");
                         }
+                        break;
                     }
                 }
                 case 2:{
@@ -66,18 +71,23 @@ public class Main {
                         case 1:{
                             fornecedor_controller.processRequest("insert");
                         }
+                        break;
                         case 2:{
                             fornecedor_controller.processRequest("update");
                         }
+                        break;
                         case 3:{
                             fornecedor_controller.processRequest("delete");
                         }
+                        break;
                         case 4:{
                             fornecedor_controller.processRequest("read");
                         }
+                        break;
                         case 5:{
                             fornecedor_controller.processRequest("read-all");
                         }
+                        break;
                     }
                 }
             }
