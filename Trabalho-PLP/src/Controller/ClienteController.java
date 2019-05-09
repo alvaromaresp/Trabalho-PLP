@@ -29,7 +29,7 @@ public class ClienteController {
     public void processRequest (String cmd) throws Exception{
         try{
            
-           switch(cmd){
+           switch(cmd.toLowerCase()){
                case "insert":{
                    if (insertion()){
                        System.out.println("Cliente inserido com sucesso!");

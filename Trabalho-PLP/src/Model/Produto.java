@@ -9,13 +9,13 @@ package Model;
  *
  * @author alfarr
  */
-public abstract class Produto {
+public class Produto {
     private int id_prod_;
-    protected double preco_;
+    protected float preco_;
     protected String nome_;
     protected String desc_;
 
-    public Produto(int id_, double preco_, String nome_, String desc_) {
+    public Produto(int id_, float preco_, String nome_, String desc_) {
         this.id_prod_ = id_;
         this.preco_ = preco_;
         this.nome_ = nome_;
@@ -33,11 +33,11 @@ public abstract class Produto {
         this.id_prod_ = id_;
     }
 
-    public double getPreco_() {
+    public float getPreco_() {
         return preco_;
     }
 
-    public void setPreco_(double preco_) {
+    public void setPreco_(float preco_) {
         this.preco_ = preco_;
     }
 

@@ -20,7 +20,7 @@ public class Servico extends Produto{
     }
         
     
-    public Servico(int id_, int id_prod_, String nome_, String desc_, double preco_) {
+    public Servico(int id_, int id_prod_, String nome_, String desc_, float preco_) {
         super(id_prod_, preco_, nome_, desc_);
         this.id_ = id_;
         Date dt = new Date();
@@ -40,6 +40,14 @@ public class Servico extends Produto{
 
     public String getDate(){
         return data_inicio_;
+    }
+
+    public String getData_inicio_() {
+        return data_inicio_;
+    }
+
+    public void setData_inicio_(String data_inicio_) {
+        this.data_inicio_ = data_inicio_;
     }
         
     
