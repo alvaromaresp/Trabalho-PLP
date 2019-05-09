@@ -65,16 +65,20 @@ public class EnderecoController {
             EnderecoDAO endereco_dao = new EnderecoDAO();
             
             Endereco aux = new Endereco();
-            
+            System.out.print("CEP: ");
             aux.setCep_(scanner.nextLine());
+            System.out.print("Rua: ");
             aux.setRua_(scanner.nextLine());
+            System.out.print("Numero: ");
             aux.setNumero_(scanner.nextLine());
+            System.out.print("Bairro: ");
             aux.setBairro_(scanner.nextLine());
+            System.out.print("Cidade: ");
             aux.setCidade_(scanner.nextLine());
+            System.out.print("Estado: ");
             aux.setEstado_(scanner.nextLine());
             
             aux.setId_(enderecos_array_.size());
-            
             return endereco_dao.insertEndereco(enderecos_array_, aux);
             
         } catch (EnderecoDAOException e){
