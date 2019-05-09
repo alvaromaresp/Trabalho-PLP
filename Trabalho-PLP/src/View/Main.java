@@ -6,6 +6,8 @@
 package View;
 
 import Controller.ClienteController;
+import Controller.FornecedorController;
+import java.util.Scanner;
 
 /**
  *
@@ -14,11 +16,77 @@ import Controller.ClienteController;
 public class Main {
     
     public static void main (String[] args) throws Exception{
-        ClienteController cliente_controller = new ClienteController();
         
-        cliente_controller.processRequest("inserir");
+        Scanner ler = new Scanner(System.in);
         
-        cliente_controller.processRequest("print-all");
+        int opc, opc2;
+        
+        System.out.println("1 - Cliente");
+        System.out.println("2 - Fornecedor");
+        System.out.println("Escolha a opção desejada: ");
+        opc = ler.nextInt();
+        while(opc != 0)
+        {
+            switch(opc){
+                case 1:{
+                    ClienteController cliente_controller = new ClienteController();
+                    System.out.println("1 - Cadastrar");
+                    System.out.println("2 - Alterar");
+                    System.out.println("3 - Remover");
+                    System.out.println("4 - Listar");
+                    System.out.println("5 - Listar Todos");
+                    opc2 = ler.nextInt();
+                    switch(opc2){
+                        case 1:{
+                            cliente_controller.processRequest("insert");
+                        }
+                        case 2:{
+                            cliente_controller.processRequest("update");
+                        }
+                        case 3:{
+                            cliente_controller.processRequest("delete");
+                        }
+                        case 4:{
+                            cliente_controller.processRequest("read");
+                        }
+                        case 5:{
+                            cliente_controller.processRequest("read-all");
+                        }
+                    }
+                }
+                case 2:{
+                    FornecedorController fornecedor_controller = new FornecedorController();
+                    System.out.println("1 - Cadastrar");
+                    System.out.println("2 - Alterar");
+                    System.out.println("3 - Remover");
+                    System.out.println("4 - Listar");
+                    System.out.println("5 - Listar Todos");
+                    opc2 = ler.nextInt();
+                    switch(opc2){
+                        case 1:{
+                            fornecedor_controller.processRequest("insert");
+                        }
+                        case 2:{
+                            fornecedor_controller.processRequest("update");
+                        }
+                        case 3:{
+                            fornecedor_controller.processRequest("delete");
+                        }
+                        case 4:{
+                            fornecedor_controller.processRequest("read");
+                        }
+                        case 5:{
+                            fornecedor_controller.processRequest("read-all");
+                        }
+                    }
+                }
+            }
+            System.out.println("1 - Cliente");
+            System.out.println("2 - Fornecedor");
+            System.out.println("Escolha a opção desejada: ");
+            opc = ler.nextInt();
+        }
     }
     
 }
+
