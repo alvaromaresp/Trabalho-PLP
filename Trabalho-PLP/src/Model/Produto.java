@@ -10,13 +10,11 @@ package Model;
  * @author alfarr
  */
 public class Produto {
-    private int id_prod_;
-    protected float preco_;
+    protected double preco_;
     protected String nome_;
     protected String desc_;
 
-    public Produto(int id_, float preco_, String nome_, String desc_) {
-        this.id_prod_ = id_;
+    public Produto(double preco_, String nome_, String desc_) {
         this.preco_ = preco_;
         this.nome_ = nome_;
         this.desc_ = desc_;
@@ -25,19 +23,11 @@ public class Produto {
     public Produto() {
     }
 
-    public int getId_() {
-        return id_prod_;
-    }
-
-    public void setId_(int id_) {
-        this.id_prod_ = id_;
-    }
-
-    public float getPreco_() {
+    public double getPreco_() {
         return preco_;
     }
 
-    public void setPreco_(float preco_) {
+    public void setPreco_(double preco_) {
         this.preco_ = preco_;
     }
 
@@ -56,6 +46,5 @@ public class Produto {
     public void setDesc_(String desc_) {
         this.desc_ = desc_;
     }
-    
-    
+       
 }

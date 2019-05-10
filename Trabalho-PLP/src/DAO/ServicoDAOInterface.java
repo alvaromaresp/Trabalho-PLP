@@ -18,4 +18,5 @@ public interface ServicoDAOInterface {
     
     public ArrayList<Servico> retrieveAll () throws ServicoDAOException;
     
+    public <T> boolean updateServico(ArrayList<Servico> array_generico, int id, String op, T update) throws Exception;
 }

@@ -18,4 +18,6 @@ public interface PecaDAOInterface {
     
     public ArrayList<Peca> retrieveAll () throws PecaDAOException;
     
+    public <T> boolean updatePeca(ArrayList<Peca> array_generico, int id, String op, T update) throws Exception;
+    
 }
