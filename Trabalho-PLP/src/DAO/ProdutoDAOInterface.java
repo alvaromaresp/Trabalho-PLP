@@ -5,15 +5,11 @@
  */
 package DAO;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author alfarr
  */
 public interface ProdutoDAOInterface {
-    
-    public <T> boolean insertProduto(ArrayList<T> array_generico, T produto) throws Exception;
     
     
 }

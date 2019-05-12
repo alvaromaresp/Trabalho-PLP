@@ -18,7 +18,7 @@ public class Peca extends Produto{
     public Peca() {
     }
 
-    public Peca(int id_, int prod_id, float preco_, String nome_, String desc_, int qtd_, int id_fornecedor_) {
+    public Peca(int id_, int prod_id, double preco_, String nome_, String desc_, int qtd_, int id_fornecedor_) {
         super(prod_id, preco_, nome_, desc_);
         this.qtd_ = qtd_;
         this.id_ = id_;

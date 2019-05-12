@@ -27,9 +27,8 @@ public class ClienteController {
     
     
     public void processRequest (String cmd) throws Exception{
-        try{
-           
-           switch(cmd.toLowerCase()){
+        try{           
+           switch(cmd){
                case "insert":{
                    if (insertion()){
                        System.out.println("Cliente inserido com sucesso!");
@@ -38,23 +37,19 @@ public class ClienteController {
                    }
                    
                    break;
-               }
-               
+               }   
                case "read":{
                    read();
                    break;
                }
-               
                case "read-all":{
                    read_all();
                    break;
                }
-               
                case "update":{
                    update();
                    break;
                }
-               
                case "delete": {
                    if (deletion()){
                        System.out.println("Cliente excluído com sucesso!");
@@ -63,7 +58,6 @@ public class ClienteController {
                    }
                    break;
                }
-                   
            }
         } catch (Exception e){
            throw new Exception(e.getMessage() + " // Erro em Cliente Controller - processRequest  ");    
@@ -77,7 +71,6 @@ public class ClienteController {
             Cliente aux = new Cliente();
             
             EnderecoController endereco_controller = new EnderecoController();
-            
             
             aux.setId_(clientes_array_.size());
             
@@ -93,10 +86,7 @@ public class ClienteController {
             
             aux.setId_endereco_(endereco_controller.processRequest("insert", -1));
             
-
             return cliente_dao.insertCliente(clientes_array_, aux);
-            
-            
         } catch (Exception e){
             throw new Exception(e.getMessage() + " // Erro em Cliente Controller - insertion ");
         }
@@ -116,8 +106,8 @@ public class ClienteController {
     }
     
     private void read () throws Exception {
-        
          try{
+             System.out.print("Digite o CPF: ");
             String cpf = scanner.nextLine();
             ClienteDAO clienteDAO = new ClienteDAO();
             EnderecoController endereco_controller = new EnderecoController();
@@ -136,8 +126,6 @@ public class ClienteController {
          } catch (ClienteDAOException e){
              throw new Exception(e.getMessage() + " // Erro em Cliente Controller - display ");
          }
-         
-         
    }
     
     private void read_all() {
@@ -151,20 +139,25 @@ public class ClienteController {
     
     private void update() throws Exception{
         try{
+            
+            System.out.print("Digite o cpf do cliente para trocar: ");
             String cpf = scanner.nextLine();
             
             ClienteDAO cliente_dao = new ClienteDAO();
             
             Cliente c = cliente_dao.retrieveClienteByCPF(clientes_array_, cpf);
-            
+            if (c == null)
+            {
+                System.out.println("AEFDP");
+            }
+            System.out.print("O que quer trocar: ");
             String op = scanner.nextLine();
+            System.out.print("Digite o novo: ");
             String _new = scanner.nextLine();
             
             switch (op.toLowerCase()){
-                
-                case "cpf":{                                  
+                case "cpf":{
                     while(cliente_dao.checkCPF(clientes_array_, _new)) _new = scanner.nextLine();
-                    
                     c.setCpf_(_new);
                     break;
                 }

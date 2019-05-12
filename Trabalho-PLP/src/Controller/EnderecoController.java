@@ -37,13 +37,11 @@ public class EnderecoController {
                 case "delete": {
                    return deletion(id)? 1 : 0;
                }
-               
                               
                case "update":{
                    update(id);
                    break;
                }
-               
                
                case "read":{
                    read(id);
@@ -51,7 +49,6 @@ public class EnderecoController {
                }        
                    
            }
-           
            System.out.println("Comando não encontrado em Endereço Controller.");
            return -1;
         } catch (Exception e){
@@ -79,6 +76,7 @@ public class EnderecoController {
             aux.setEstado_(scanner.nextLine());
             
             aux.setId_(enderecos_array_.size());
+            
             return endereco_dao.insertEndereco(enderecos_array_, aux);
             
         } catch (EnderecoDAOException e){
