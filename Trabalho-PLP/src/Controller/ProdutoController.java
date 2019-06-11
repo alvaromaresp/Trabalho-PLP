@@ -25,7 +25,7 @@ public class ProdutoController {
    private final ArrayList<Servico> array_servicos = new ArrayList();
    private final ArrayList<Peca> array_pecas = new ArrayList();
    
-   ProdutoController(){
+   public ProdutoController(){
        this.scanner = new Scanner(System.in);
    }
    
@@ -78,21 +78,44 @@ public class ProdutoController {
    
    private boolean insertion () throws Exception{
        try{
+           System.out.print("Digite a categoria que deseja inserir (Peça ou Serviço): ");
            String subclass = scanner.nextLine();
-           Produto temp = new Produto();
+           
+           Produto temp;
+           
+           switch (subclass.toLowerCase()) {
+               case "peça":
+                   temp = new Peca();
+                   break;
+               case "serviço":
+                   temp = new Servico();
+                   break;
+               default:
+                   temp = new Produto();
+                   break;
+           }
+           
            boolean rFlag = false;
            
+           System.out.print("Nome: ");
            temp.setNome_(scanner.nextLine());
+           System.out.print("Descrição: ");
            temp.setDesc_(scanner.nextLine());
-           temp.setPreco_(scanner.nextFloat());
+           System.out.print("Preço: ");
+           temp.setPreco_(scanner.nextDouble());
+           scanner.nextLine();
           
            switch (subclass.toLowerCase()){
                
                case "peça":{
                    Peca peca = (Peca) temp;
                    peca.setId_(array_pecas.size());
+                   System.out.print("Número do Fornecedor: ");
                    peca.setId_fornecedor_(scanner.nextInt());
+                   scanner.nextLine();
+                   System.out.print("Quantidade em estoque: ");
                    peca.setQtd_(scanner.nextInt());
+                   scanner.nextLine();
                    
                    PecaDAO peca_dao = new PecaDAO();
                    
@@ -103,8 +126,9 @@ public class ProdutoController {
                case "serviço":{
                    Servico servico = (Servico) temp;
                    servico.setId_(array_servicos.size());
-                   servico.setDuracao_(scanner.nextFloat());
-                   
+                   System.out.print("Média de duração do serviço: ");
+                   servico.setDuracao_(scanner.nextDouble());
+                   scanner.nextLine();
                    
                    ServicoDAO servico_dao = new ServicoDAO();
                    rFlag = servico_dao.insertProduto(array_servicos, servico);
@@ -122,9 +146,13 @@ public class ProdutoController {
    
    private boolean deletion () throws Exception{
        try{
+           
+           System.out.print("Digite a categoria que deseja inserir (Peça ou Serviço): ");
            String subclass = scanner.nextLine();
            boolean rFlag = false;
+           System.out.print("Digite o id do produto (listados acima): ");
            int id = scanner.nextInt();
+           scanner.nextLine();
            
            switch (subclass.toLowerCase()){
                
@@ -150,12 +178,13 @@ public class ProdutoController {
    }
    
    private void read_all(){
+       System.out.println("ID | NOME | DESCRIÇÃO | FORNECEDOR | QUANTIDADE | PREÇO");
        array_pecas.forEach((p) -> {
            System.out.println(p.toString());
        });
        
        System.out.println("--------------------------------------");
-       
+       System.out.println("ID | NOME | DESCRIÇÃO | DURAÇÃO | PREÇO");
        array_servicos.forEach((s) -> {
            System.out.println(s.toString());
        });
@@ -204,6 +233,7 @@ public class ProdutoController {
            String subclass = scanner.nextLine();
            boolean rFlag = false;
            int id = scanner.nextInt();
+           scanner.nextLine();
            String op;
            
            switch (subclass.toLowerCase()){
@@ -231,17 +261,20 @@ public class ProdutoController {
                        
                        case "preço":{
                            double update = scanner.nextDouble();
+                           scanner.nextLine();
                            rFlag = peca_dao.updatePeca(array_pecas, id, op, update);
                            break;
                        }
                        
                        case "fornecedor": {
                            int update = scanner.nextInt();
+                           scanner.nextLine();
                            rFlag = peca_dao.updatePeca(array_pecas, id, op, update);
                            break;
                        }
                        case "quantidade":{
                            int update = scanner.nextInt();
+                           scanner.nextLine();
                            rFlag = peca_dao.updatePeca(array_pecas, id, op, update);
                            break;
                        }
@@ -271,12 +304,14 @@ public class ProdutoController {
                        
                        case "preço":{
                            double update = scanner.nextDouble();
+                           scanner.nextLine();
                            rFlag =  servico_dao.updateServico(array_servicos, id, op, update);
                            break;
                        }
                        
                        case "duração":{
                            double update = scanner.nextDouble();
+                           scanner.nextLine();
                            rFlag =  servico_dao.updateServico(array_servicos, id, op, update);
                            break;
                        }

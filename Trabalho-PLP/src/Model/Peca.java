@@ -52,6 +52,6 @@ public class Peca extends Produto{
     
     @Override
     public String toString(){
-        return id_ + " | " + nome_ + " | " + desc_ + " | " + qtd_ + " | " + preco_;
+        return id_ + " | " + nome_ + " | " + desc_ + " | " + id_fornecedor_ + " | " + qtd_ + " | " + preco_;
     }
 }

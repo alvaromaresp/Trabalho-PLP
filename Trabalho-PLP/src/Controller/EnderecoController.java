@@ -37,21 +37,19 @@ public class EnderecoController {
                 case "delete": {
                    return deletion(id)? 1 : 0;
                }
-               
                               
                case "update":{
                    update(id);
                    break;
                }
                
-               
                case "read":{
+                   System.out.println("test");
                    read(id);
                    break;
                }        
                    
            }
-           
            System.out.println("Comando não encontrado em Endereço Controller.");
            return -1;
         } catch (Exception e){
@@ -65,12 +63,17 @@ public class EnderecoController {
             EnderecoDAO endereco_dao = new EnderecoDAO();
             
             Endereco aux = new Endereco();
-            
+            System.out.print("CEP: ");
             aux.setCep_(scanner.nextLine());
+            System.out.print("Rua: ");
             aux.setRua_(scanner.nextLine());
+            System.out.print("Numero: ");
             aux.setNumero_(scanner.nextLine());
+            System.out.print("Bairro: ");
             aux.setBairro_(scanner.nextLine());
+            System.out.print("Cidade: ");
             aux.setCidade_(scanner.nextLine());
+            System.out.print("Estado: ");
             aux.setEstado_(scanner.nextLine());
             
             aux.setId_(enderecos_array_.size());
@@ -94,6 +97,7 @@ public class EnderecoController {
     }
     
     private void read (int id){
+        System.out.println("Endereço na tela");
         System.out.println(enderecos_array_.get(id).toString());
     }
    

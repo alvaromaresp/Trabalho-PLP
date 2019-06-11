@@ -2,27 +2,41 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
- 
+ */
 package View;
 
 import Controller.ClienteController;
 import Controller.FornecedorController;
+import Controller.EnderecoController;
+import Controller.ProdutoController;
 import java.util.Scanner;
 
 /**
  *
  * @author alfarr
- 
+ */
 public class Main {
     
     public static void main (String[] args) throws Exception{
         Scanner ler = new Scanner(System.in);
         ClienteController cliente_controller = new ClienteController();
         FornecedorController fornecedor_controller = new FornecedorController();
+        EnderecoController endereco_controller = new EnderecoController();
+        ProdutoController produto_controller = new ProdutoController();
+        
         int opc = -1, opc2;
         
         while(opc != 0){
             System.out.println("======== MENU ========");
+            System.out.println("1 - Cliente");
+            System.out.println("2 - Fornecedor");
+            System.out.println("3 - Produto");
+            System.out.print("Escolha a opção desejada: ");
+            opc2 = ler.nextInt();
+            ler.nextLine();
+            
+            System.out.println(" ");
+
             System.out.println("1 - Cadastrar");
             System.out.println("2 - Alterar");
             System.out.println("3 - Remover");
@@ -32,138 +46,92 @@ public class Main {
             System.out.println("======================");
             System.out.print("Escolha a opção desejada: ");
             opc = ler.nextInt();
+            ler.nextLine();
             System.out.println(" ");
             
-            System.out.println("Options: ");
-            System.out.println("1 - Cliente");
-            System.out.println("2 - Fornecedor");
-            System.out.print("Escolha a opção desejada: ");
-            opc2 = ler.nextInt();
-            System.out.println(" ");
-                
             switch (opc) {
                 case 1:
                     //CADASTRO
-                    if(opc2 == 1){
-                        cliente_controller.processRequest("insert");
+                    switch (opc2) {
+                        case 1:
+                            cliente_controller.processRequest("insert");
+                            break;
+                        case 2:
+                            fornecedor_controller.processRequest("insert");
+                            break;
+                        case 3:
+                            produto_controller.processRequest("insert");
+                            break;
+                        default:
+                            break;
                     }
-                    else if(opc == 2){
-                        fornecedor_controller.processRequest("insert");
-                    }   break;
+                    break;
                 case 2:
-                    //ALTERAR
-                    if(opc2 == 1){
-                        cliente_controller.processRequest("uptade");
+            //ALTERAR
+                    switch (opc2) {
+                        case 1:
+                            cliente_controller.processRequest("update");
+                            break;
+                        case 2:
+                            fornecedor_controller.processRequest("update");
+                            break;
+                        case 3:
+                            produto_controller.processRequest("update");
+                            break;
+                        default:
+                            break;
                     }
-                    else if(opc == 2){
-                        fornecedor_controller.processRequest("uptade");
-                    }   break;
+                    break;
                 case 3:
                     //REMOVER
-                    if(opc2 == 1){
-                        cliente_controller.processRequest("delete");
-                    }
-                    else if(opc == 2){
-                        fornecedor_controller.processRequest("delete");
-                    }   break;
+                    switch (opc2) {
+                        case 1:
+                            cliente_controller.processRequest("delete");
+                            break;
+                        case 2:
+                            fornecedor_controller.processRequest("delete");
+                            break;
+                        case 3:
+                            produto_controller.processRequest("delete");
+                            break;
+                        default:
+                            break;
+                    } break;
                 case 4:
-                    if(opc2 == 1){
-                        cliente_controller.processRequest("read");
+                    switch (opc2) {
+                        case 1:
+                            cliente_controller.processRequest("delete");
+                            break;
+                        case 2:
+                            fornecedor_controller.processRequest("delete");
+                            break;
+                        case 3:
+                            produto_controller.processRequest("delete");
+                            break;
+                        default:
+                            break;
                     }
-                    else if(opc == 2){
-                        fornecedor_controller.processRequest("read");
-                    }   break;
                 case 5:
-                    if(opc2 == 1){
-                        cliente_controller.processRequest("read-all");
+                    switch (opc2) {
+                        case 1:
+                            cliente_controller.processRequest("read-all");
+                            break;
+                        case 2:
+                            fornecedor_controller.processRequest("read-all");
+                            break;
+                        case 3:
+                            produto_controller.processRequest("read-all");
+                            break;
+                        default:
+                            break;
                     }
-                    else if(opc == 2){
-                        fornecedor_controller.processRequest("read-all");
-                    }   break;
                 default:
                     break;
             }
         }
         
     }
-        
-        /*Scanner ler = new Scanner(System.in);
-        ClienteController cliente_controller = new ClienteController();
-        FornecedorController fornecedor_controller = new FornecedorController();
-                        
-        int opc = -1, opc2;
-        while(opc != 0)
-        {
-            System.out.println("1 - Cliente");
-            System.out.println("2 - Fornecedor");
-            System.out.println("0 - Fechar");
-            System.out.print("Escolha a opção desejada: ");
-            opc = ler.nextInt();
-            
-            if(opc != 0){
-                System.out.println("1 - Cadastrar");
-                System.out.println("2 - Alterar");
-                System.out.println("3 - Remover");
-                System.out.println("4 - Listar");
-                System.out.println("5 - Listar Todos");
-                System.out.print("Escolha a opção desejada: ");
-                opc2 = ler.nextInt();
-                System.out.println();
 
-                switch(opc){
-                    case 1:{
-                        switch(opc2){
-                            case 1:{
-                                cliente_controller.processRequest("insert");
-                                break;
-                            }
-                            case 2:{
-                                cliente_controller.processRequest("update");
-                                break;
-                            }
-                            case 3:{
-                                cliente_controller.processRequest("delete");
-                                break;
-                            }
-                            case 4:{
-                                cliente_controller.processRequest("read");
-                                break;
-                            }
-                            case 5:{
-                                cliente_controller.processRequest("read-all");
-                                break;
-                            }
-                        }
-                        opc2 = 0;
-                    }
-                    case 2:{
-                        switch(opc2){
-                            case 1:{
-                                fornecedor_controller.processRequest("insert");
-                                break;
-                            }
-                            case 2:{
-                                fornecedor_controller.processRequest("update");
-                                break;
-                            }
-                            case 3:{
-                                fornecedor_controller.processRequest("delete");
-                                break;
-                            }
-                            case 4:{
-                                fornecedor_controller.processRequest("read");
-                                break;
-                            }
-                            case 5:{
-                                fornecedor_controller.processRequest("read-all");
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
 }
- */
+    
 

@@ -12,14 +12,14 @@ package Model;
 public class Fornecedor {
     
     private int id_;
-    private int cnpj_;
+    private String cnpj_;
     private String nome_fantasia;
     private int id_endereco_;
 
     public Fornecedor() {
     }
 
-    public Fornecedor(int id_, int cnpj_, String nome_fantasia, int id_endereco_) {
+    public Fornecedor(int id_, String cnpj_, String nome_fantasia, int id_endereco_) {
         this.id_ = id_;
         this.cnpj_ = cnpj_;
         this.nome_fantasia = nome_fantasia;
@@ -34,11 +34,11 @@ public class Fornecedor {
         this.id_ = id_;
     }
 
-    public int getCnpj_() {
+    public String getCnpj_() {
         return cnpj_;
     }
 
-    public void setCnpj_(int cnpj_) {
+    public void setCnpj_(String cnpj_) {
         this.cnpj_ = cnpj_;
     }
 

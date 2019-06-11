@@ -15,8 +15,12 @@ import java.util.ArrayList;
 public interface FornecedorDAOInterface {
     
     public boolean insertFornecedor (Fornecedor fornecedor) throws FornecedorDAOException;
+    public boolean insertFornecedor(ArrayList<Fornecedor> array_fornecedor, Fornecedor fornecedor) throws FornecedorDAOException;
     public boolean deleteFornecedor (int id) throws FornecedorDAOException;
     
     public ArrayList<Fornecedor> retrieveAll () throws FornecedorDAOException;    
-    
+    public Fornecedor retrieveFornecedorByCNPJ(ArrayList<Fornecedor> array_fornecedor, String cnpj) throws FornecedorDAOException;
+
+    public boolean checkCNPJ(ArrayList<Fornecedor> fornecedor_array, String cnpj);
+
 }

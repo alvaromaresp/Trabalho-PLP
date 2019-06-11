@@ -134,18 +134,26 @@ public class ClienteController {
                 System.out.println("CPF inexistente.");
             }
          } catch (ClienteDAOException e){
-             throw new Exception(e.getMessage() + " // Erro em Cliente Controller - display ");
+             throw new Exception(e.getMessage() + " // Erro em Cliente Controller - read ");
          }
          
          
    }
     
-    private void read_all() {
-        for (Cliente c : clientes_array_){
-            System.out.println("Nome: " + c.getNome_());
-            System.out.println("CPF: " + c.getCpf_());
-            System.out.println("Email: " + c.getEmail_());
-            System.out.println("Telefone: " + c.getTelefone_());
+    private void read_all() throws Exception {
+        
+        EnderecoController endereco_controller = new EnderecoController();
+        
+        try{
+            for (Cliente c : clientes_array_){
+                System.out.println("Nome: " + c.getNome_());
+                System.out.println("CPF: " + c.getCpf_());
+                System.out.println("Email: " + c.getEmail_());
+                System.out.println("Telefone: " + c.getTelefone_());
+                System.out.println(endereco_controller.processRequest("read", c.getId_endereco_()));
+            }
+        } catch (Exception e){
+            throw new Exception(e.getMessage() + " // Erro em Cliente Controller - read_all ");
         }
     }
     

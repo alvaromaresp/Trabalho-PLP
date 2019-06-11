@@ -17,8 +17,8 @@ public class EnderecoDAO implements EnderecoDAOInterface{
     @Override
     public int insertEndereco(ArrayList<Endereco> enderecos_array, Endereco endereco) throws EnderecoDAOException {
        try{
-           int rId = enderecos_array.indexOf(endereco);
            enderecos_array.add(endereco);
+           int rId = enderecos_array.indexOf(endereco);
            
            return rId;
        } catch (Exception e){
