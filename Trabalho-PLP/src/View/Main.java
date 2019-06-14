@@ -5,10 +5,6 @@
  */
 package View;
 
-import Controller.ClienteController;
-import Controller.FornecedorController;
-import Controller.EnderecoController;
-import Controller.ProdutoController;
 import java.util.Scanner;
 
 /**
@@ -19,10 +15,10 @@ public class Main {
     
     public static void main (String[] args) throws Exception{
         Scanner ler = new Scanner(System.in);
-        ClienteController cliente_controller = new ClienteController();
-        FornecedorController fornecedor_controller = new FornecedorController();
-        EnderecoController endereco_controller = new EnderecoController();
-        ProdutoController produto_controller = new ProdutoController();
+        ClienteView cliente_view = new ClienteView();
+        EnderecoView endereco_view = new EnderecoView();
+        FornecedorView fornecedor_view = new FornecedorView();
+        ProdutoView produto_view = new ProdutoView();
         
         int opc = -1, opc2;
         
@@ -54,13 +50,13 @@ public class Main {
                     //CADASTRO
                     switch (opc2) {
                         case 1:
-                            cliente_controller.processRequest("insert");
+                            cliente_view.insertion();
                             break;
                         case 2:
-                            fornecedor_controller.processRequest("insert");
+                            fornecedor_view.insertion();
                             break;
                         case 3:
-                            produto_controller.processRequest("insert");
+                            produto_view.insertion();
                             break;
                         default:
                             break;
@@ -70,13 +66,13 @@ public class Main {
             //ALTERAR
                     switch (opc2) {
                         case 1:
-                            cliente_controller.processRequest("update");
+                            cliente_view.update();
                             break;
                         case 2:
-                            fornecedor_controller.processRequest("update");
+                            fornecedor_view.update();
                             break;
                         case 3:
-                            produto_controller.processRequest("update");
+                            produto_view.update();
                             break;
                         default:
                             break;
@@ -86,13 +82,13 @@ public class Main {
                     //REMOVER
                     switch (opc2) {
                         case 1:
-                            cliente_controller.processRequest("delete");
+                            cliente_view.deletion();
                             break;
                         case 2:
-                            fornecedor_controller.processRequest("delete");
+                            fornecedor_view.deletion();
                             break;
                         case 3:
-                            produto_controller.processRequest("delete");
+                            produto_view.deletion();
                             break;
                         default:
                             break;
@@ -100,13 +96,13 @@ public class Main {
                 case 4:
                     switch (opc2) {
                         case 1:
-                            cliente_controller.processRequest("delete");
+                            cliente_view.read();
                             break;
                         case 2:
-                            fornecedor_controller.processRequest("delete");
+                            fornecedor_view.read();
                             break;
                         case 3:
-                            produto_controller.processRequest("delete");
+                            produto_view.read();
                             break;
                         default:
                             break;
@@ -114,13 +110,13 @@ public class Main {
                 case 5:
                     switch (opc2) {
                         case 1:
-                            cliente_controller.processRequest("read-all");
+                            cliente_view.readAll();
                             break;
                         case 2:
-                            fornecedor_controller.processRequest("read-all");
+                            fornecedor_view.readAll();
                             break;
                         case 3:
-                            produto_controller.processRequest("read-all");
+                            produto_view.readAll();
                             break;
                         default:
                             break;

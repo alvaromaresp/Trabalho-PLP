@@ -8,8 +8,8 @@ package Controller;
 import DAO.ClienteDAO;
 import DAO.ClienteDAOException;
 import Model.Cliente;
+import View.EnderecoView;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  *
@@ -17,97 +17,29 @@ import java.util.Scanner;
  */
 public class ClienteController {
     
-    private final Scanner scanner;
-    private final ArrayList<Cliente> clientes_array_ = new ArrayList();
-
-    public ClienteController() {
-        this.scanner = new Scanner(System.in);
-
-    }   
+    private final EnderecoView endereco_view_;
     
-    
-    public void processRequest (String cmd) throws Exception{
-        try{
-           
-           switch(cmd.toLowerCase()){
-               case "insert":{
-                   if (insertion()){
-                       System.out.println("Cliente inserido com sucesso!");
-                   } else {
-                       System.out.println("Erro na inserção do Cliente.");
-                   }
-                   
-                   break;
-               }
-               
-               case "read":{
-                   read();
-                   break;
-               }
-               
-               case "read-all":{
-                   read_all();
-                   break;
-               }
-               
-               case "update":{
-                   update();
-                   break;
-               }
-               
-               case "delete": {
-                   if (deletion()){
-                       System.out.println("Cliente excluído com sucesso!");
-                   } else {
-                       System.out.println("Erro na exclusão do Cliente.");
-                   }
-                   break;
-               }
-                   
-           }
-        } catch (Exception e){
-           throw new Exception(e.getMessage() + " // Erro em Cliente Controller - processRequest  ");    
-        }
-            
+    public ClienteController (){
+        endereco_view_ = new EnderecoView();
     }
-    
-    private boolean insertion () throws Exception{
+           
+    public boolean insert (ArrayList<Cliente> clientes_array_, Cliente cliente) throws Exception{
         try{
             ClienteDAO cliente_dao = new ClienteDAO();
-            Cliente aux = new Cliente();
             
-            EnderecoController endereco_controller = new EnderecoController();
+            return cliente_dao.insertCliente(clientes_array_, cliente);
             
-            
-            aux.setId_(clientes_array_.size());
-            
-            System.out.println("Entre com as informações do Cliente");
-            System.out.print("Nome: ");
-            aux.setNome_(scanner.nextLine());
-            System.out.print("CPF: ");
-            aux.setCpf_(scanner.nextLine());
-            System.out.print("Email: ");
-            aux.setEmail_(scanner.nextLine());
-            System.out.print("Telefone: ");
-            aux.setTelefone_(scanner.nextLine());
-            
-            aux.setId_endereco_(endereco_controller.processRequest("insert", -1));
-            
-
-            return cliente_dao.insertCliente(clientes_array_, aux);
-            
-            
-        } catch (Exception e){
+        } catch (ClienteDAOException e){
             throw new Exception(e.getMessage() + " // Erro em Cliente Controller - insertion ");
         }
     }
     
-    private boolean deletion () throws Exception {
+    public boolean delete (ArrayList<Cliente> clientes_array_, String cpf) throws Exception {
         try{
-            String cpf;
             ClienteDAO cliente_dao = new ClienteDAO();
-        
-            cpf = scanner.nextLine();
+            EnderecoView endereco_view = new EnderecoView();
+            
+            endereco_view.deletion(cliente_dao.retrieveClienteByCPF(clientes_array_, cpf).getId_endereco_());
             
             return cliente_dao.deleteClienteByCPF(clientes_array_, cpf);
         } catch (ClienteDAOException e){
@@ -115,64 +47,25 @@ public class ClienteController {
         }
     }
     
-    private void read () throws Exception {
+    public Cliente read (ArrayList<Cliente> clientes_array_, String cpf) throws Exception {
         
-         try{
-            String cpf = scanner.nextLine();
-            ClienteDAO clienteDAO = new ClienteDAO();
-            EnderecoController endereco_controller = new EnderecoController();
-            
-            Cliente c = clienteDAO.retrieveClienteByCPF(clientes_array_, cpf);
-            
-            if (c != null){
-                System.out.println("Nome: " + c.getNome_());
-                System.out.println("CPF: " + c.getCpf_());
-                System.out.println("Email: " + c.getEmail_());
-                System.out.println("Telefone: " + c.getTelefone_());
-                endereco_controller.processRequest("read", c.getId_endereco_());
-            } else {
-                System.out.println("CPF inexistente.");
-            }
-         } catch (ClienteDAOException e){
-             throw new Exception(e.getMessage() + " // Erro em Cliente Controller - read ");
-         }
-         
-         
+        ClienteDAO clienteDAO = new ClienteDAO();
+        
+        return clienteDAO.retrieveClienteByCPF(clientes_array_, cpf);
+
    }
     
-    private void read_all() throws Exception {
-        
-        EnderecoController endereco_controller = new EnderecoController();
-        
-        try{
-            for (Cliente c : clientes_array_){
-                System.out.println("Nome: " + c.getNome_());
-                System.out.println("CPF: " + c.getCpf_());
-                System.out.println("Email: " + c.getEmail_());
-                System.out.println("Telefone: " + c.getTelefone_());
-                System.out.println(endereco_controller.processRequest("read", c.getId_endereco_()));
-            }
-        } catch (Exception e){
-            throw new Exception(e.getMessage() + " // Erro em Cliente Controller - read_all ");
-        }
-    }
     
-    private void update() throws Exception{
-        try{
-            String cpf = scanner.nextLine();
-            
+    public void update(ArrayList<Cliente> clientes_array_, String cpf, String op, String _new) throws Exception{
+        try{            
             ClienteDAO cliente_dao = new ClienteDAO();
             
             Cliente c = cliente_dao.retrieveClienteByCPF(clientes_array_, cpf);
-            
-            String op = scanner.nextLine();
-            String _new = scanner.nextLine();
+
             
             switch (op.toLowerCase()){
                 
                 case "cpf":{                                  
-                    while(cliente_dao.checkCPF(clientes_array_, _new)) _new = scanner.nextLine();
-                    
                     c.setCpf_(_new);
                     break;
                 }
@@ -188,14 +81,13 @@ public class ClienteController {
                 }
                 
                 case "endereco":{
-                    EnderecoController endereco_controller = new EnderecoController();
-                    endereco_controller.processRequest("update", c.getId_endereco_());
+                    endereco_view_.update(c.getId_endereco_());
                     break;
                 }
                         
             }
             
-            clientes_array_.add(c.getId_(), c);
+            clientes_array_.add(clientes_array_.indexOf(c), c);
             
             
         } catch (ClienteDAOException e){
@@ -203,5 +95,10 @@ public class ClienteController {
         }
     }
     
+    public boolean checkCPF (ArrayList<Cliente> clientes_array_, String cpf){
+        ClienteDAO cliente_dao = new ClienteDAO();
+        
+        return cliente_dao.checkCPF(clientes_array_, cpf);
+    }
     
 }

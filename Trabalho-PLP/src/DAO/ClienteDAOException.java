@@ -11,11 +11,11 @@ package DAO;
  */
 public class ClienteDAOException extends Exception{
     
-    public ClienteDAOException(){
+    ClienteDAOException(){
         super();
     }
     
-    public ClienteDAOException(String message){
+    ClienteDAOException(String message){
         super("Erro em CLIENTE: " + message);
     }
 }

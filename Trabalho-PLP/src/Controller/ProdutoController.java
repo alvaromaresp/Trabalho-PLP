@@ -13,70 +13,87 @@ import Model.Peca;
 import Model.Produto;
 import Model.Servico;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  *
- * @author alfarr
+ * @author ruanbasilio
  */
 public class ProdutoController {
     
-   private final Scanner scanner;
-   private final ArrayList<Servico> array_servicos = new ArrayList();
-   private final ArrayList<Peca> array_pecas = new ArrayList();
-   
-   public ProdutoController(){
-       this.scanner = new Scanner(System.in);
-   }
-   
-   public void processRequest (String cmd) throws Exception{
+    
+    public boolean insertion_peca(ArrayList<Peca> array_pecas, Peca peca) throws Exception {
         try{
-           
-           switch(cmd.toLowerCase()){
-               case "insert":{
-                   if (insertion()){
-                       System.out.println("Produto inserido com sucesso!");
-                   } else {
-                       System.out.println("Erro na inserção do Produto.");
-                   }
-                   
-                   break;
-               }
-               
-               case "read":{
-                   read();
-                   break;
-               }
-               
-               case "read-all":{
-                   read_all();
-                   break;
-               }
-               
-               case "update":{
-                   read_all();
-                   update();
-                   break;
-               }
-               
-               case "delete": {
-                   read_all();
-                   if (deletion()){
-                       System.out.println("Produto excluído com sucesso!");
-                   } else {
-                       System.out.println("Erro na exclusão do Produto.");
-                   }
-                   break;
-               }
-                   
-           }
-        } catch (Exception e){
-           throw new Exception(e.getMessage() + " // Erro em Produto Controller - processRequest  ");    
+            PecaDAO peca_dao = new PecaDAO();
+            return peca_dao.insertProduto(array_pecas, peca);
+        } catch (PecaDAOException e){
+           throw new Exception(e.getMessage() + " // Erro em Produto Controller - insertion peca");
         }
-            
+    }
+    
+    public boolean insertion_servico(ArrayList<Servico> array_servicos, Servico servico) throws Exception {
+        try{
+            ServicoDAO servico_dao = new ServicoDAO();
+            return servico_dao.insertProduto(array_servicos, servico);
+        } catch (ServicoDAOException e){
+           throw new Exception(e.getMessage() + " // Erro em Produto Controller - insertion servico ");
+        }
     }
    
-   private boolean insertion () throws Exception{
+    public boolean deletion_peca(ArrayList<Peca> array_pecas, int id) throws Exception {
+        try{
+            PecaDAO peca_dao = new PecaDAO();
+            return peca_dao.deleteProduto(array_pecas, id);
+        } catch (PecaDAOException e){
+           throw new Exception(e.getMessage() + " // Erro em Produto Controller - insertion peca");
+        }
+    }
+    
+    public boolean deletion_servico(ArrayList<Peca> array_servicos, int id) throws Exception {
+        try{
+            ServicoDAO servico_dao = new ServicoDAO();
+            return servico_dao.deleteProduto(array_servicos, id);
+        } catch (ServicoDAOException e){
+           throw new Exception(e.getMessage() + " // Erro em Produto Controller - insertion peca");
+        }
+    }
+    
+    public ArrayList<Produto> read_peca(ArrayList<Peca> array_pecas, String nome) throws Exception{
+        try{
+            PecaDAO peca_dao = new PecaDAO();
+            return peca_dao.retrieveByNome(array_pecas, nome);
+        }catch (PecaDAOException e){
+           throw new Exception(e.getMessage() + " // Erro em Produto Controller - read peca ");
+       }   
+    }
+    
+    public ArrayList<Produto> read_servico(ArrayList<Servico> array_servico, String nome) throws Exception{
+        try{
+            ServicoDAO servico_dao = new ServicoDAO();
+            return servico_dao.retrieveByNome(array_servico, nome);
+        }catch (ServicoDAOException e){
+           throw new Exception(e.getMessage() + " // Erro em Produto Controller - read servico ");
+       }   
+    }
+    
+    public <T> boolean update_peca(ArrayList<Peca> array_pecas, int id, String op, T update) throws Exception{
+       try{
+          PecaDAO peca_dao = new PecaDAO();
+          return peca_dao.updatePeca(array_pecas, id, op, update);
+       } catch (PecaDAOException e){
+           throw new Exception(e.getMessage() + " // Erro em Produto Controller - update peca ");
+       }
+   }
+    
+    public <T> boolean update_servico(ArrayList<Servico> array_servico, int id, String op, T update) throws Exception{
+       try{
+          ServicoDAO servico_dao = new ServicoDAO();
+          return servico_dao.updateServico(array_servico, id, op, update);
+       } catch (ServicoDAOException e){
+           throw new Exception(e.getMessage() + " // Erro em Produto Controller - update servico ");
+       }
+   }
+}
+   /*public boolean insertion () throws Exception{
        try{
            System.out.print("Digite a categoria que deseja inserir (Peça ou Serviço): ");
            String subclass = scanner.nextLine();
@@ -325,4 +342,4 @@ public class ProdutoController {
        }
 
    }
-}
+}*/

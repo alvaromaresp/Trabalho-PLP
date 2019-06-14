@@ -31,15 +31,36 @@ public class EnderecoDAO implements EnderecoDAOInterface{
     @Override
     public boolean deleteEndereco(ArrayList<Endereco> enderecos_array,int id) throws EnderecoDAOException {
         try{
-           return enderecos_array.remove(id) != null;
-        } catch (Exception e){
+           return enderecos_array.remove(enderecos_array.indexOf(retrieveByID(enderecos_array, id))) != null;
+        } catch (EnderecoDAOException e){
             throw new EnderecoDAOException(e.getMessage() + " // Erro em deleteEndereco(array, id) ");
         }
     }
+    
+    
 
     @Override
     public ArrayList<Endereco> retrieveAll() throws EnderecoDAOException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Endereco retrieveByID(ArrayList<Endereco> enderecos_array, int id) throws EnderecoDAOException {
+        try{
+            Endereco rEndereco = null;
+            
+            for(Endereco e : enderecos_array){
+                if (e.getId_() == id){
+                    rEndereco = e;
+                    break;
+                }
+            }
+            
+            return rEndereco;
+                
+        }catch (Exception e){
+            throw new EnderecoDAOException(e.getMessage() + " // Erro em retrieveFornecedorByCNPJ");
+        }
     }
             
 
