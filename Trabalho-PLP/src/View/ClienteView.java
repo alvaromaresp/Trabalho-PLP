@@ -6,7 +6,6 @@
 package View;
 
 import Controller.ClienteController;
-import Controller.EnderecoController;
 import DAO.ClienteDAOException;
 import Model.Cliente;
 import java.util.ArrayList;
@@ -21,20 +20,17 @@ public class ClienteView {
     private final Scanner scanner;
     private final ArrayList<Cliente> clientes_array_ = new ArrayList();
     private final ClienteController cliente_controller_;
-    private final EnderecoController endereco_controller_; 
 
 
     public ClienteView() {
         this.scanner = new Scanner(System.in);
         cliente_controller_ = new ClienteController();
-        endereco_controller_ = new EnderecoController();
-
     }   
     
     public void insertion () throws Exception{
         try{
             Cliente aux = new Cliente();   
-            
+            EnderecoView endereco_view = new EnderecoView();
             aux.setId_(clientes_array_.size());
             
             System.out.println("Entre com as informações do Cliente");
@@ -46,8 +42,8 @@ public class ClienteView {
             aux.setEmail_(scanner.nextLine());
             System.out.print("Telefone: ");
             aux.setTelefone_(scanner.nextLine());
+            aux.setId_endereco_(endereco_view.insertion());
             
-
             if (cliente_controller_.insert(clientes_array_, aux)){
                 System.out.println("Cliente inserido com sucesso!");
             } else {

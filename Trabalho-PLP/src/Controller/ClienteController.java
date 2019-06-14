@@ -26,7 +26,6 @@ public class ClienteController {
     public boolean insert (ArrayList<Cliente> clientes_array_, Cliente cliente) throws Exception{
         try{
             ClienteDAO cliente_dao = new ClienteDAO();
-            
             return cliente_dao.insertCliente(clientes_array_, cliente);
             
         } catch (ClienteDAOException e){
