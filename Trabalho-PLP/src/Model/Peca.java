@@ -5,11 +5,13 @@
  */
 package Model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author alfarr
  */
-public class Peca extends Produto{
+public class Peca extends Produto implements Serializable {
     
     private int id_;
     private int qtd_;

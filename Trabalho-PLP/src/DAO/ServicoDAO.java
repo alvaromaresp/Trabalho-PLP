@@ -16,21 +16,6 @@ import java.util.ArrayList;
 public class ServicoDAO implements ProdutoDAOInterface, ServicoDAOInterface {
 
     @Override
-    public boolean insertPeca(Servico servico) throws ServicoDAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean deletePeca(int id) throws ServicoDAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ArrayList<Servico> retrieveAll() throws ServicoDAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public <T> boolean insertProduto(ArrayList<T> array_generico, T produto) throws ServicoDAOException {
         try{
             return array_generico.add(produto);
@@ -42,27 +27,30 @@ public class ServicoDAO implements ProdutoDAOInterface, ServicoDAOInterface {
     @Override
     public <T> boolean deleteProduto(ArrayList<T> array_generico, int id) throws ServicoDAOException {
         try{
-            return array_generico.remove(id) != null;
+            Object p = returnByID(array_generico, id);
+            
+            return array_generico.remove((T) p);
         } catch (Exception e) {
             throw new ServicoDAOException(e.getMessage() + " // Erro em Servico - deleteProduto(array, id) ");
         }
     }
 
     @Override
-    public <T> ArrayList<Produto> retrieveByNome(ArrayList<T> array_generico, String nome) throws ServicoDAOException {
+    public <T> Produto retrieveByNome(ArrayList<T> array_generico, String nome) throws ServicoDAOException {
         try{
-            ArrayList<Produto> rArray = new ArrayList();
+            Produto p = null;
             
             for(Object t : array_generico){
                 if(t instanceof Produto){
                     Produto temp = (Produto) t;
                     if (temp.getNome_().equals(nome)){
-                        rArray.add(temp);
+                        p = temp;
+                        break;
                     }
                 }
             }
             
-            return rArray;
+            return p;
         
         } catch (Exception e){
             throw new ServicoDAOException(e.getMessage() + " // Erro em Servico - retrieveByNome(array, nome) ");          
@@ -107,6 +95,28 @@ public class ServicoDAO implements ProdutoDAOInterface, ServicoDAOInterface {
             return rFlag;
         } catch (Exception e){
             throw new ServicoDAOException(e.getMessage() + " // Erro em Servico - updateProduto ");
+        }
+    }
+
+    @Override
+    public <T> Produto returnByID(ArrayList<T> array_generico, int id) throws Exception {
+        try{
+            Produto p = null;
+            
+            for(Object t : array_generico){
+                if(t instanceof Produto){
+                    Servico temp = (Servico) t;
+                    if (temp.getId_() == id){
+                        p = temp;
+                        break;
+                    }
+                }
+            }
+            
+            return p;
+        
+        } catch (Exception e){
+            throw new ServicoDAOException(e.getMessage() + " // Erro em Servico - returnByID(array, nome) ");          
         }
     }
     

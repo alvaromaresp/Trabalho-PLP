@@ -16,5 +16,6 @@ public interface ProdutoDAOInterface {
     
     public <T> boolean insertProduto(ArrayList<T> array_generico, T produto) throws Exception;
     public <T> boolean deleteProduto(ArrayList<T> array_generico, int id) throws Exception;
-    public <T> ArrayList<Produto> retrieveByNome(ArrayList<T> array_generico, String nome) throws Exception; 
+    public <T> Produto retrieveByNome(ArrayList<T> array_generico, String nome) throws Exception; 
+    public <T> Produto returnByID(ArrayList<T> array_generico, int id) throws Exception;
 }

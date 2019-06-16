@@ -15,20 +15,6 @@ import java.util.ArrayList;
  */
 public class PecaDAO implements ProdutoDAOInterface, PecaDAOInterface{
 
-    @Override
-    public boolean insertPeca(Peca peca) throws PecaDAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean deletePeca(int id) throws PecaDAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ArrayList<Peca> retrieveAll() throws PecaDAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public <T> boolean insertProduto(ArrayList<T> array_generico, T produto) throws PecaDAOException {
@@ -42,27 +28,30 @@ public class PecaDAO implements ProdutoDAOInterface, PecaDAOInterface{
     @Override
     public <T> boolean deleteProduto(ArrayList<T> array_generico, int id) throws PecaDAOException {
         try{
-            return array_generico.remove(id) != null;
+            Object p = returnByID(array_generico, id);
+            
+            return array_generico.remove((T) p);
         } catch (Exception e) {
             throw new PecaDAOException(e.getMessage() + " // Erro em Peca - deleteProduto(array, id) ");
         }
     }
 
     @Override
-    public <T> ArrayList<Produto> retrieveByNome(ArrayList<T> array_generico, String nome) throws PecaDAOException {
+    public <T> Produto retrieveByNome(ArrayList<T> array_generico, String nome) throws PecaDAOException {
         try{
-            ArrayList<Produto> rArray = new ArrayList();
+            Produto p = null;
             
             for(Object t : array_generico){
                 if(t instanceof Produto){
                     Produto temp = (Produto) t;
                     if (temp.getNome_().equals(nome)){
-                        rArray.add(temp);
+                        p = temp;
+                        break;
                     }
                 }
             }
             
-            return rArray;
+            return p;
         
         } catch (Exception e){
             throw new PecaDAOException(e.getMessage() + " // Erro em Peca - retrieveByNome(array, nome) ");          
@@ -113,6 +102,50 @@ public class PecaDAO implements ProdutoDAOInterface, PecaDAOInterface{
             throw new PecaDAOException(e.getMessage() + " // Erro em Servico - updateProduto ");
         }
     
+    }
+
+    @Override
+    public boolean updateEstoque(ArrayList<Peca> array_peca, int id, int venda) throws Exception {
+        try{
+            boolean rFlag = false;
+            
+            for(Peca t : array_peca){
+                if (t.getId_() == id){
+                    if ((t.getQtd_() - venda) >= 0){
+                        t.setQtd_(t.getQtd_() - venda);
+                        rFlag = true;
+                        break;
+                    }
+                }
+   
+            }
+            
+            return rFlag;
+        } catch (Exception e){
+            throw new PecaDAOException(e.getMessage() + " // Erro em Servico - updateEstoque ");
+        }
+            
+    }
+
+    @Override
+    public <T> Produto returnByID(ArrayList<T> array_generico, int id) throws Exception {
+        try{
+            Produto p = null;
+            
+            for(Object t : array_generico){
+                if(t instanceof Produto){
+                    Peca temp = (Peca) t;
+                    if (temp.getId_() == id){
+                        p = temp;
+                        break;
+                    }
+                }
+            }
+            return p;
+        
+        } catch (Exception e){
+            throw new ServicoDAOException(e.getMessage() + " // Erro em Peca - returnByID(array, nome) ");          
+        }
     }
     
 }

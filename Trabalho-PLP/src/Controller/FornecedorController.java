@@ -51,12 +51,12 @@ public class FornecedorController {
          }
     }
     
-    public Fornecedor update (ArrayList<Fornecedor> fornecedor_array_, String cpf, String op, String _new) throws Exception{
+    public void update (ArrayList<Fornecedor> fornecedor_array_, String cpf, String op, String _new) throws Exception{
         try{
             FornecedorDAO fornecedor_dao = new FornecedorDAO();
             Fornecedor f = fornecedor_dao.retrieveFornecedorByCNPJ(fornecedor_array_, cpf);
             
-            
+            fornecedor_array_.remove(f);
             
             switch (op.toLowerCase()){
                 case "cnpj":{
@@ -69,7 +69,7 @@ public class FornecedorController {
                     break;
                 }
                 
-                case "endereco":{
+                case "endereço":{
                     EnderecoView endereco_view = new EnderecoView();
                     endereco_view.update(f.getId_endereco_());
                     break;
@@ -77,18 +77,17 @@ public class FornecedorController {
                         
             }
             
-            fornecedor_array_.add(fornecedor_array_.indexOf(f), f);
+            fornecedor_array_.add(f);
             
-            return fornecedor_dao.retrieveFornecedorByCNPJ(fornecedor_array_, cpf);
             
         } catch (FornecedorDAOException e){
             throw new Exception(e.getMessage() + " // Erro em Cliente Controller - update  ");    
         }
     }
     
-    public boolean checkCNPJ(String cnpj, String novo, ArrayList<Fornecedor> fornecedor_array_) throws Exception{
+    public boolean checkCNPJ(String cnpj, ArrayList<Fornecedor> fornecedor_array_) throws Exception{
             FornecedorDAO fornecedor_dao = new FornecedorDAO();
-            return fornecedor_dao.checkCNPJ(fornecedor_array_, novo);
+            return fornecedor_dao.checkCNPJ(fornecedor_array_, cnpj);
     }
 
 }

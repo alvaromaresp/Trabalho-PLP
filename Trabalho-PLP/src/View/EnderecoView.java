@@ -6,6 +6,7 @@
 package View;
 
 import Controller.EnderecoController;
+import FileUtils.FileIO;
 import Model.Endereco;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -16,7 +17,7 @@ import java.util.Scanner;
  */
 public class EnderecoView {
     private final Scanner scanner;
-    private final ArrayList<Endereco> enderecos_array_ = new ArrayList();
+    private static ArrayList<Endereco> enderecos_array_ = new ArrayList();
     private final EnderecoController endereco_controller_; 
 
 
@@ -62,7 +63,9 @@ public class EnderecoView {
     
     public void read (int id) throws Exception {
         try{
-            endereco_controller_.read(enderecos_array_, id);
+            Endereco end;
+            end = endereco_controller_.read(enderecos_array_, id);
+            System.out.println(end.toString());
         } catch (Exception e){
             throw new Exception(e.getMessage() + " // Erro em Endereço View - read ");
         }
@@ -70,16 +73,40 @@ public class EnderecoView {
     
     public void update (int id) throws Exception {
         try{
-            System.out.print("Digite qual campo do Endereco deseja alterar (CEP, Rua, Bairro, Cidade ou Estado): ");
-            String op = scanner.nextLine();
-            System.out.print("Digite o novo: ");
-            String _new = scanner.nextLine();
+            String vetor[] = new String[6];
+
             
-            endereco_controller_.update(enderecos_array_, id, op, _new);
+            System.out.println("Digite o novo endereco");
+            System.out.print("CEP: ");
+            vetor[0] = scanner.nextLine();
+            System.out.print("Rua: ");
+            vetor[1] = scanner.nextLine();
+            System.out.print("Numero: ");
+            vetor[2] = scanner.nextLine();
+            System.out.print("Bairro: ");
+            vetor[3] = scanner.nextLine();
+            System.out.print("Cidade: ");
+            vetor[4] = scanner.nextLine();
+            System.out.print("Estado: ");
+            vetor[5] = scanner.nextLine();
+            
+            endereco_controller_.update(enderecos_array_, id, vetor);
         } catch (Exception e){
             throw new Exception(e.getMessage() + " // Erro em Endereço View - update ");
         }
         
         
     }
+     public void save() throws Exception{
+        FileIO.saveToFile(enderecos_array_, "enderecos");
+    }
+    
+     public static void load() throws Exception{
+        try{
+            enderecos_array_ = (ArrayList<Endereco>) FileIO.loadFromFile("enderecos");
+        }catch (ClassCastException e){
+            System.out.println("Class cast error");
+        }
+    }
+
 }

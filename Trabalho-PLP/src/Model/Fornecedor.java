@@ -5,11 +5,13 @@
  */
 package Model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author alfarr
  */
-public class Fornecedor {
+public class Fornecedor implements Serializable{
     
     private int id_;
     private String cnpj_;

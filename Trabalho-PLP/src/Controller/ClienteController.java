@@ -61,6 +61,7 @@ public class ClienteController {
             
             Cliente c = cliente_dao.retrieveClienteByCPF(clientes_array_, cpf);
 
+            clientes_array_.remove(c);
             
             switch (op.toLowerCase()){
                 
@@ -79,14 +80,14 @@ public class ClienteController {
                     break;
                 }
                 
-                case "endereco":{
+                case "endereço":{
                     endereco_view_.update(c.getId_endereco_());
                     break;
                 }
                         
             }
             
-            clientes_array_.add(clientes_array_.indexOf(c), c);
+            clientes_array_.add(c);
             
             
         } catch (ClienteDAOException e){

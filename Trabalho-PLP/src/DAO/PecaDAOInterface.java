@@ -13,11 +13,8 @@ import java.util.ArrayList;
  * @author alfarr
  */
 public interface PecaDAOInterface {
-    public boolean insertPeca (Peca peca) throws PecaDAOException;
-    public boolean deletePeca (int id) throws PecaDAOException;
-    
-    public ArrayList<Peca> retrieveAll () throws PecaDAOException;
     
     public <T> boolean updatePeca(ArrayList<Peca> array_generico, int id, String op, T update) throws Exception;
+    public boolean updateEstoque (ArrayList<Peca> array_peca, int id, int venda) throws Exception;
     
 }

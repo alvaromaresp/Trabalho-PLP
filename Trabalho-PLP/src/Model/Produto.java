@@ -5,11 +5,13 @@
  */
 package Model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author alfarr
  */
-public class Produto {
+public class Produto implements Serializable {
     protected double preco_;
     protected String nome_;
     protected String desc_;

@@ -7,6 +7,7 @@ package View;
 
 import Controller.FornecedorController;
 import DAO.FornecedorDAOException;
+import FileUtils.FileIO;
 import Model.Fornecedor;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -17,7 +18,7 @@ import java.util.Scanner;
 public class FornecedorView {
     
     private final Scanner scanner;
-    private final ArrayList<Fornecedor> fornecedor_array_ = new ArrayList();
+    private static ArrayList<Fornecedor> fornecedor_array_ = new ArrayList();
     private final FornecedorController controller_fornecedor = new FornecedorController();
     
     public FornecedorView() {
@@ -89,7 +90,7 @@ public class FornecedorView {
          }
     }
     
-     public void update() throws Exception{
+    public void update() throws Exception{
         try{
             
             System.out.print("Digite o cpf do cliente para trocar: ");
@@ -100,7 +101,7 @@ public class FornecedorView {
             System.out.print("Digite o novo: ");
             String _new = scanner.nextLine();
  
-            if(controller_fornecedor.checkCNPJ(cpf, _new, fornecedor_array_)){
+            if(controller_fornecedor.checkCNPJ(cpf, fornecedor_array_)){
                 controller_fornecedor.update(fornecedor_array_, cpf, op, _new);
             } else{
                 System.out.print("CNPJ invalido!");
@@ -122,6 +123,18 @@ public class FornecedorView {
             }
         } catch (Exception e){
             throw new Exception(e.getMessage() + " // Erro em Fornecedor View - readAll");
+        }
+    }
+    
+    public void save() throws Exception{
+        FileIO.saveToFile(fornecedor_array_, "fornecedores");
+    }
+    
+    public static void load() throws Exception{
+        try{
+            fornecedor_array_ = (ArrayList<Fornecedor>) FileIO.loadFromFile("fornecedores");
+        }catch (ClassCastException e){
+            System.out.println("Class cast error");
         }
     }
 }
